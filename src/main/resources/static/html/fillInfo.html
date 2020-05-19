@@ -1,0 +1,162 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>FillInfo</title>
+    <meta name="description" content="Login - Register Template">
+    <meta name="author" content="Lorenzo Angelino aka MrLolok">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/UserCSS.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        
+
+        input[type="checkbox"]+label {
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        input[type="checkbox"]+label {
+            background-color: #ffffff;
+            border: 0px solid #666666;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 0.3em;
+            padding: 9px;
+            border-radius: 3px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        input[type="checkbox"]+label:active {
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="checkbox"]:checked+label {
+            background-color: rgb(33, 235, 141);
+            border: 0px solid #F47164;
+        }
+
+        span {
+            margin-left: 0.2em;
+            font-size: 1.2em;
+        }
+
+        .item_container {
+            display: inline;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="bg">
+    <div id="container-info">
+        <div class="title">
+            <i class="material-icons lock">info</i> 请选择您的偏好口味
+        </div>
+
+        <form>
+            <div class="item_container" v-for="item in tastes" :key="item.id" v-cloak>
+                <button type="button" class="submit-button" v-cloak>
+                    <input type="checkbox" v-bind:value="item.id" v-bind:id="item.id" class="check_view_state"
+                        v-model="prefer" style="display: none;" v-cloak>
+                    <label v-bind:for="item.id" v-cloak></label>
+                    <span class="status" v-cloak>{{ item.name }}</span>
+                </button>
+            </div>
+        </form>
+
+        <div class="title">
+            <i class="material-icons lock">info</i> 请选择您的病史
+        </div>
+
+        <form>
+            <div class="item_container" v-for="item in illness" :key="item.id" v-cloak>
+                <button type="button" class="submit-button" v-cloak>
+                    <input type="checkbox" v-bind:value="item.id" v-bind:id="item.id" class="check_view_state"
+                        v-model="illHis" style="display: none;" v-cloak>
+                    <label v-bind:for="item.id" v-cloak></label>
+                    <span class="status" v-cloak>{{ item.name }}</span>
+                </button>
+            </div>
+
+            <p class="error" v-cloak>{{ error }}</p>
+        </form>
+
+        <div class="register">
+            <button type="button" class="register-link" v-on:click="sendInfo">完成</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        var vue = new Vue({
+            el: "#container-info",
+            data: {
+                tastes: [],
+                illness: [],
+                prefer: [],
+                illHis: [],
+                error: ""
+            },
+            mounted() {
+                var vm = this
+                axios.get("/api/getAllIllAndTaste", {
+                }).then(function (response) {
+                    if (response["data"]["status"]) {
+                        vm.tastes = response["data"]["allTastes"]
+                        vm.illness = response["data"]["allIllness"]
+                        vm.tastes.forEach(element => {
+                            element.id = "t" + element.id
+                        })
+                        vm.illness.forEach(element => {
+                            element.id = "i" + element.id
+                        })
+                    } else {
+                        vm.error = response["data"]["msg"]
+                    }
+                }).catch(function (reason) {
+                    vm.error = reason
+                })
+            },
+            methods: {
+                sendInfo: function (event) {
+                    var vm = this
+                    var preference = []
+                    var illHistory = []
+                    this.prefer.forEach(element => {
+                        element = element.substring(1)
+                        preference.push({ "id": parseInt(element) })
+                    })
+                    this.illHis.forEach(element => {
+                        element = element.substring(1)
+                        illHistory.push({ "id": parseInt(element) })
+                    })
+                    axios.post("/api/fillInfo", {
+                        "preference": preference,
+                        "illHistory": illHistory
+                    }).then(function (response) {
+                        if (response["data"]["status"]) {
+                            window.location.href = "\\"
+                        } else if(response["data"]["statusCode"] === 403){
+                            window.location.href = "\\register"
+                        } else {
+                            vm.error = response["data"]["msg"]
+                        }
+                    }).catch(function (reason) {
+                        vm.error = reason
+                    })
+
+                },
+                generateButtons: function (event) {
+                    this.list.push
+                }
+            }
+        })
+    </script>
+</div>
+</body>
+
+</html>

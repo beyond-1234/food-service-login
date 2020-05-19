@@ -1,0 +1,44 @@
+注册
+{
+    "user":{
+        "pwd":"123456",
+        "name":"123456",
+        "gender":"0",
+        "birth":"1999-02-26",
+        "imagePath":"123",
+        "laborStrength":"0",
+        "email":"123",
+        "weight":50,
+        "height":50
+    }
+}
+
+完善信息
+{
+    "info":{
+        "illHistory":[
+            {"id":1},
+            {"id":2}
+        ],
+        "preference":[
+            {"id":1},
+            {"id":2}
+        ]
+    }
+}
+
+登录
+{
+    "user":{
+        "name":"12345",
+        "pwd":"12345"
+    }
+}
+
+改密码
+{
+    "user":{
+        "name":"123456",
+        "pwd":"asdABC1234"
+    }
+}

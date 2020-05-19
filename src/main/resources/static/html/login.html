@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/UserCSS.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        
+        input[type=text]{
+            padding: 8px 0px;
+        }
+        input[type=password]{
+            padding: 8px 0px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div id="bg">
+    <div id="container-login">
+        <div id="title">
+            <i class="material-icons lock">lock</i> 登录
+        </div>
+
+        <form onsubmit="false">
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">face</i>
+                </div>
+                <span class="span-hint">用户名</span>
+                <input id="username" type="text" v-model="name"
+                        placeholder="请输入用户名"
+                       required class="validate" autocomplete="off">
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">vpn_key</i>
+                </div>
+                <span class="span-hint">密&nbsp;&nbsp;&nbsp;&nbsp;码</span>
+                <input id="password" type="password" v-model="pwd"
+                placeholder="请输入密码"
+                       required class="validate" autocomplete="off">
+            </div>
+
+            <div class="clearfix"></div>
+
+
+            <p class="error" v-cloak>{{ error }}</p>
+
+            <button type="button" class="submit-button" v-on:click="login">登录</button>
+            <!--            <input type="submit" value="Log In"/>-->
+        </form>
+
+        <div class="register">
+            还没有账户?
+            <a href="/register"><button id="register-link" class="register-link">立即注册</button></a>
+        </div>
+    </div>
+
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        var vue = new Vue({
+            el: "#container-login",
+            data: {
+                name: "",
+                pwd: "",
+                res: "",
+                error: ""
+            },
+            methods: {
+                login: function (event) {
+                    console.log("123")
+                    var vm = this
+                    axios.post("/api/login", {
+                        "user": {
+                            "name": vm.name,
+                            "pwd": vm.pwd
+                        }
+                    }).then(function (response) {
+                        // var message = response["data"]
+                        console.log(response)
+                        if (response["data"]["status"]) {
+                            window.location.href = "\\"
+                        } else {
+                            vm.error = response["data"]["msg"]
+                        }
+                    }).catch(function (reason) {
+                        console.log(reason)
+                    })
+                }
+            }
+        })
+    </script>
+</div>
+</body>
+
+</html>

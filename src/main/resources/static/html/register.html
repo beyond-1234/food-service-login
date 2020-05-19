@@ -1,0 +1,386 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <meta name="description" content="Login - Register Template">
+    <meta name="author" content="Lorenzo Angelino aka MrLolok">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/UserCSS.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            overflow: hidden;
+        }
+
+        #container-register2 {
+            left: 8000px;
+            top: -400px;
+        }
+    </style>
+    
+    <script>
+        function scrollNext() {
+            $("#container-register2").delay(0).velocity({ left: "0px" }, 200);
+            $("#container-register1").delay(0).velocity({ left: "8000px" }, 200);
+        }
+        function scrollLast() {
+            $("#container-register1").delay(0).velocity({ left: "0px" }, 200);
+            $("#container-register2").delay(0).velocity({ left: "8000px" }, 200);
+        }
+    </script>
+</head>
+
+<body>
+    <div id="bg">
+        <div class="container-register" id="container-register1">
+            <div class="title">
+                <i class="material-icons lock">lock</i> 注册
+            </div>
+
+            <form class="register">
+
+                <div class="input">
+                    <div class="input-addon">
+                        <i class="material-icons">image</i>
+                    </div>
+                    <button class="file_button">
+                        <input id="image" type="file" accept="image/*" @change="fileChange($event)" required>
+                        点击此处上传头像
+                    </button>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="input">
+                    <div class="input-addon">
+                        <i class="material-icons">email</i>
+                    </div>
+                    <span class="span-hint">邮箱</span>
+                    <input id="email" type="email" v-model="email" required class="validate" autocomplete="off">
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="input">
+                    <div class="input-addon">
+                        <i class="material-icons">face</i>
+                    </div>
+                    <span class="span-hint">用户名</span>
+                    <input id="username" type="text" v-model="name" required class="validate" autocomplete="off">
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="input">
+                    <div class="input-addon">
+                        <i class="material-icons">vpn_key</i>
+                    </div>
+                    <span class="span-hint">密码</span>
+                    <input id="password" type="password" v-model="pwd" required class="validate" autocomplete="off">
+                </div>
+
+                <div class="clearfix"></div>
+
+
+                <!-- <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">date_range</i>
+                </div>
+                <span class="span-hint">出生年月</span>
+                <input id="birth" placeholder="出生年月" type="date" v-model="birth"
+                       required class="birth" autocomplete="off">
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">album</i>
+                </div>
+                <div class="input-addon-radio">
+                    <span class="span-hint">性别</span>
+
+                    <label class="radio_label">
+                        <input id="gender_male" name="gender_radio" type="radio" v-model="gender"
+                        class="validate" value="0">男</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio_label">
+                        <input id="gender_female" name="gender_radio" type="radio" v-model="gender"
+                        class="validate" value="1">女</label>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">album</i>
+                </div>
+                <div class="input-addon-radio">
+                    <span class="span-hint">劳动强度</span>
+
+                    <label class="radio_label"><input id="labor_h" name="labor_radio" v-model="laborStrength"
+                        type="radio" class="validate" value="0">强</label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio_label"><input id="labor_m" name="labor_radio" v-model="laborStrength"
+                        type="radio" class="validate" value="1">中</label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio_label"><input id="labor_l" name="labor_radio" v-model="laborStrength"
+                        type="radio" class="validate" value="2">轻</label>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">accessibility</i>
+                </div>
+                <span class="span-hint">体重(kg)</span>
+                <input id="weight" type="text" v-model="weight"
+                       required class="validate" autocomplete="off">
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">accessibility</i>
+                </div>
+                <span class="span-hint">身高(cm)</span>
+                <input id="height" type="text" v-model="height"
+                       required class="validate" autocomplete="off">
+            </div>
+
+            <div class="clearfix"></div> -->
+
+                <p v-cloak class="error">{{ error }}</p>
+
+                <button type="button" class="submit-button" onclick="scrollNext()">下一页</button>
+
+            </form>
+
+            <div class="register">
+                已有账户?
+                <a href="/login"><button class="register-link">立即登录</button></a>
+            </div>
+        </div>
+        <div class="container-register" id="container-register2">
+            <div class="title">
+                <i class="material-icons lock">lock</i> 注册
+            </div>
+
+            <form class="register">
+
+                <!-- <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">image</i>
+                </div>
+                <button class="file_button">
+                    <input id="image" type="file" accept="image/*" @change="fileChange($event)" required >
+                    点击此处上传头像
+                </button>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">email</i>
+                </div>
+                <span class="span-hint">邮箱</span>
+                <input id="email" type="email" v-model="email"
+                       required class="validate" autocomplete="off">
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">face</i>
+                </div>
+                <span class="span-hint">用户名</span>
+                <input id="username" type="text" v-model="name"
+                       required class="validate" autocomplete="off">
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="input">
+                <div class="input-addon">
+                    <i class="material-icons">vpn_key</i>
+                </div>
+                <span class="span-hint">密码</span>
+                <input id="password" type="password" v-model="pwd"
+                       required class="validate" autocomplete="off">
+            </div>
+
+            <div class="clearfix"></div> -->
+
+
+                <div class="input">
+                    <div class="input-addon">
+                        <i class="material-icons">date_range</i>
+                    </div>
+                    <span class="span-hint">出生年月</span>
+                    <input id="birth" placeholder="出生年月" type="date" v-model="birth" required class="birth"
+                        autocomplete="off">
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="input">
+                    <div class="input-addon">
+                        <i class="material-icons">album</i>
+                    </div>
+                    <div class="input-addon-radio">
+                        <span class="span-hint">性别</span>
+
+                        <label class="radio_label">
+                            <input id="gender_male" name="gender_radio" type="radio" v-model="gender" class="validate"
+                                value="0">男</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <label class="radio_label">
+                            <input id="gender_female" name="gender_radio" type="radio" v-model="gender" class="validate"
+                                value="1">女</label>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="input">
+                    <div class="input-addon">
+                        <i class="material-icons">album</i>
+                    </div>
+                    <div class="input-addon-radio">
+                        <span class="span-hint">劳动强度</span>
+
+                        <label class="radio_label"><input id="labor_h" name="labor_radio" v-model="laborStrength"
+                                type="radio" class="validate" value="0">强</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <label class="radio_label"><input id="labor_m" name="labor_radio" v-model="laborStrength"
+                                type="radio" class="validate" value="1">中</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <label class="radio_label"><input id="labor_l" name="labor_radio" v-model="laborStrength"
+                                type="radio" class="validate" value="2">轻</label>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="input">
+                    <div class="input-addon">
+                        <i class="material-icons">accessibility</i>
+                    </div>
+                    <span class="span-hint">体重(kg)</span>
+                    <input id="weight" type="text" v-model="weight" required class="validate" autocomplete="off">
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="input">
+                    <div class="input-addon">
+                        <i class="material-icons">accessibility</i>
+                    </div>
+                    <span class="span-hint">身高(cm)</span>
+                    <input id="height" type="text" v-model="height" required class="validate" autocomplete="off">
+                </div>
+
+                <div class="clearfix"></div>
+
+                <p v-cloak class="error">{{ error }}</p>
+
+
+                <button type="button" class="submit-button" onclick="scrollLast()">上一页</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="submit-button" v-on:click="register">注册</button>
+
+            </form>
+
+            <div class="register">
+                已有账户?
+                <a href="/login"><button class="register-link">立即登录</button></a>
+            </div>
+        </div>
+    </div>
+
+        <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
+
+        <script>
+            var vue = new Vue({
+                el: "#bg",
+                data: {
+                    name: "",
+                    email: "",
+                    pwd: "",
+                    imageBase64: "",
+                    birth: "",
+                    gender: 0,
+                    laborStrength: 0,
+                    weight: 0,
+                    height: 0,
+                    error: ""
+                },
+                methods: {
+                    register: function (event) {
+                        var vm = this
+                        console.log("send message")
+                        axios.post("/api/register", {
+                            "user": {
+                                "name": vm.name,
+                                "email": vm.email,
+                                "pwd": vm.pwd,
+                                "imgBase64": vm.imageBase64,
+                                "birth": vm.birth,
+                                "gender": vm.gender,
+                                "laborStrength": vm.laborStrength,
+                                "weight": vm.weight,
+                                "height": vm.height
+                            }
+                        }).then(function (response) {
+                            if (response["data"]["status"]) {
+                                window.location.href = "\\fillInfo"
+                            } else {
+                                vm.error = response["data"]["msg"]
+                            }
+                        }).catch(function (reason) {
+                            vm.error = reason
+                        })
+
+                    },
+                    compressImage: function (imgBase64) {
+                        let canvas = document.createElement('canvas'), //创建一个canvas元素
+                            context = canvas.getContext('2d'),    //context相当于画笔，里面有各种可以进行绘图的API
+                            imageWidth = image.width / 2,    //压缩后图片的宽度，这里设置为缩小一半
+                            imageHeight = image.height / 2    //压缩后图片的高度，这里设置为缩小一半
+                        canvas.width = imageWidth    //设置绘图的宽度
+                        canvas.height = imageHeight    //设置绘图的高度
+                        //使用drawImage重新设置img标签中的图片大小，实现压缩。drawImage方法的参数可以自行查阅W3C
+                        // context.drawImage(imgBase64, 0, 0, imageWidth, imageHeight)
+                        //使用toDataURL将canvas上的图片转换为base64格式
+                        return canvas.toDataURL('image/jpeg')
+                    },
+                    fileChange: function (event) {
+
+                        var vm = this
+                        var image = event.target.files[0]
+                        var reader = new FileReader()
+                        reader.readAsDataURL(image)// 读出 base64
+                        reader.onloadend = function () {
+                            // 图片的 base64 格式, 可以直接当成 img 的 src 属性值
+                            vm.imageBase64 = reader.result
+                            console.log(vm.imageBase64)
+                        }
+                    },
+
+                }
+            })
+        </script>
+</body>
+
+</html>
